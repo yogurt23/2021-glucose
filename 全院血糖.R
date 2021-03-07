@@ -1,5 +1,5 @@
 
-setwd("C:/Users/sunxy/Desktop/r project/全院血糖") 
+setwd("C:/GITHUB/2021-glucose") 
 library(readxl)
 # before<-as.character(read.table("clipboard",header=T,sep="\t")[,1])
 # after<-as.character(read.table("clipboard",header=T,sep="\t")[,1])
@@ -27,23 +27,27 @@ for (r in c(1:dim(gdata_wai)[1])){
 r_low
 
 gdata_wai<-gdata_wai[c(1:200),]
+
+r_fuce<-c()
 gdata_wai$低血糖复测<-NA
-for (r in r_low[1:5]){
+gdata_wai$低血糖复测时间<-NA
+for (r in r_low){
   r2<-r+1
   #print(r)
-  if (gdata_wai$住院号[r2]!=gdata_wai$住院号[r]){ print(“2”)}
-    #gdata_wai$低血糖复测[r]<-0
-   
-  # else{
-  # #          t<-difftime(gdata_wai$采血时间[r2],gdata_wai$采血时间[r],units="mins")   #前-后
-  # #          if (t>=5 & t<90){
-  # #            gdata_wai$低血糖复测[r]<-1
-  # #            gdata_wai$低血糖复测时间[r]<-t
-  # #          }else{
-  # #            gdata_wai$低血糖复测[r]<-0
-  # #          }
-  # #      } 
+  if (gdata_wai$住院号[r2] != gdata_wai$住院号[r]){ 
+    print('2')
+  }  else{
+           t<-difftime(gdata_wai$采血时间[r2],gdata_wai$采血时间[r],units="mins")   #前-后
+           if (t>=5 & t<90){
+             gdata_wai$低血糖复测[r]<-1
+             gdata_wai$低血糖复测时间[r]<-t
+           }else{
+             gdata_wai$低血糖复测[r]<-0
+           }
+       }
 }
+
+
 gdata_wai$姓名
 
 
